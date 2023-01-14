@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/knight1972001/fragments/issues"
   },
-  "homepage": "https://github.com/knight1972001/fragments#readme"
+  "homepage": "https://github.com/knight1972001/fragments#readme",
+  "devDependencies": {
+    "prettier": "2.8.3"
+  }
 }
