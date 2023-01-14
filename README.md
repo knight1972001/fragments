@@ -17,12 +17,12 @@ npx eslint --init
 Need to install the following packages:
   @eslint/create-config@0.3.1
 Ok to proceed? (y) y
-✔ How would you like to use ESLint? · problems
-✔ What type of modules does your project use? · commonjs
-✔ Which framework does your project use? · none
-✔ Does your project use TypeScript? · no
-✔ Where does your code run? · Node
-✔ What format do you want your config file to be in? · JavaScript
+✔ How would you like to use ESLint? · problems <br>
+✔ What type of modules does your project use? · commonjs <br>
+✔ Which framework does your project use? · none <br>
+✔ Does your project use TypeScript? · no <br>
+✔ Where does your code run? · Node <br>
+✔ What format do you want your config file to be in? · JavaScript <br>
 </p>
 
 <h3> Install ESLint VSCode Extension:</h3>
