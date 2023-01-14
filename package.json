@@ -1,0 +1,21 @@
+{
+  "name": "fragments",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CCP555 fragments back-end API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knight1972001/fragments.git"
+  },
+  "keywords": [],
+  "author": "Long Nguyen",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/knight1972001/fragments/issues"
+  },
+  "homepage": "https://github.com/knight1972001/fragments#readme"
+}
