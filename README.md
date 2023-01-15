@@ -35,6 +35,16 @@ Ok to proceed? (y) y
 },
 ```
 
+<h3> Run Lint </h3>
+```npm run lint```
+
+<h1>CURL - JQ</h1>
+<p>Install CURL and JQ on WSL(access from PowerShell)</p>
+
+<p> Run server first! `node src/server.js`</p>
+<p> run `curl localhost:8080` </p>
+<p> Run `curl -s localhost:8080 | jq` to run </p>
+
 <h1> Strutured Loggin and Pino Setup </h1>
 <h3> Install Pino</h3>
 
@@ -67,5 +77,5 @@ module.exports = require('pino')(options);
 <h1> Start, Dev, Debug </h1>
 <p>
 `npm run dev` is used to view or run the application worked on while in development mode to see active changes while `npm start` on the other hand cannot be run until `npm build` has been run.
-`npm debug` simple use to debug
+`npm run debug` simple use to debug
 </p>
