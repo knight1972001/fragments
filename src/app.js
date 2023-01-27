@@ -16,7 +16,7 @@ const compression = require('compression');
 
 // modifications to src/app.js
 const passport = require('passport');
-const authenticate = require('./authentication');
+const authenticate = require('./authorization/');
 
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
