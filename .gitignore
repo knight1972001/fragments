@@ -105,3 +105,4 @@ dist
 
 #.htpasswd
 .htpasswd
+tests/.htpasswd
