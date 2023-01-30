@@ -103,4 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
+#aws file
+./ip-172-31-60-114.ec2.internal
 
