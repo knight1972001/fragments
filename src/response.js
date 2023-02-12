@@ -11,7 +11,7 @@
 module.exports.createSuccessResponse = function (data) {
   return {
     status: 'ok',
-    // TODO ...
+    // A1 implement
     ...data,
   };
 };
@@ -28,11 +28,11 @@ module.exports.createSuccessResponse = function (data) {
  * }
  */
 module.exports.createErrorResponse = function (code, message) {
-  // TODO ...
+  // A1 implement
   return {
     status: 'error',
     error: {
-      code: 404,
+      code: code,
       message: message,
     },
   };

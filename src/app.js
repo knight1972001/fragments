@@ -13,7 +13,6 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
-
 // modifications to src/app.js
 const passport = require('passport');
 const authenticate = require('./authorization/');
