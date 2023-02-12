@@ -10,7 +10,7 @@ const createErrorResponse = require('../../response').createErrorResponse;
 function validConversion(contentType, extension) {
   let formats = [];
   switch (contentType) {
-    case contentType.includes('text/plain'):
+    case 'text/plain':
       formats = ['.txt'];
       break;
     case 'text/markdown':
@@ -73,7 +73,6 @@ module.exports = async (req, res) => {
         if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
           let html = await fragment.getData();
           dataResult = '<h1>' + html + '</h1>';
-          console.log('In html: ' + dataResult);
         } else {
           dataResult = await fragment.getData();
         }
@@ -84,29 +83,23 @@ module.exports = async (req, res) => {
           if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
             let html = await fragment.getData();
             dataResult = '<h1>' + html + '</h1>';
-            console.log('In html: ' + dataResult);
           } else {
             dataResult = await fragment.getData();
           }
         } else {
           dataResult = await fragment.getData();
         }
-      } else {
-        createErrorResponse(
-          res.status(415).json({
-            message: 'Cannot convert from ' + fragment.mimeType + ' to ' + ext,
-          })
-        );
       }
     }
 
     if (dataResult) {
-      console.log('In send: ' + dataResult);
       res.status(200).send(dataResult);
     } else {
+      const error = 'Cannot convert from ' + fragment.mimeType + ' to ' + ext;
       createErrorResponse(
         res.status(415).json({
-          message: 'Cannot convert from ' + fragment.mimeType + ' to ' + ext,
+          code: 415,
+          message: error,
         })
       );
     }
