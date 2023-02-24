@@ -47,3 +47,5 @@ COPY ./tests/.htpasswd ./tests/.htpasswd
 
 # Run the server
 CMD npm start
+
+

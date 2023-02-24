@@ -9,4 +9,7 @@ tests/
 .git/
 .gitignore
 .prettier*
-jest*o
+jest*
+.svn/
+**/.DS_Store
+
