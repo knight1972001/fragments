@@ -15,63 +15,63 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 # https://docs.npmjs.com/cli/v8/using-npm/config#color
 ENV NPM_CONFIG_COLOR=false
 
-# Use /app as our working directory
+# # Use /app as our working directory
+# WORKDIR /app
+
+# # Copy the package.json and package-lock.json files into /app
+# COPY package*.json /app/
+
+# # Copy the package.json and package-lock.json files into the working dir (/app)
+# COPY package*.json ./
+
+# # Copy the package.json and package-lock.json files into the working dir (/app)
+# COPY package.json package-lock.json ./
+
+# # Install node dependencies defined in package-lock.json
+# RUN npm install
+
+# # Copy src to /app/src/
+# COPY ./src ./src
+
+# # Start the container by running our server
+# CMD npm start
+
+# # We run our service on port 8080
+# EXPOSE 8080
+
+# # Copy src/
+# COPY ./src ./src
+
+# # Copy our HTPASSWD file
+# COPY ./tests/.htpasswd ./tests/.htpasswd
+
+# # Run the server
+# CMD npm start
+
+#UPDATE LAB7 Dockerfile employs Docker best practices for creating Docker Images
+# Build stage
+# Use a lightweight Alpine Linux image as the base
+FROM alpine:3.14
+
+# Set the working directory for the image
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files into /app
-COPY package*.json /app/
-
-# Copy the package.json and package-lock.json files into the working dir (/app)
+# Copy the package.json and package-lock.json files to the image and install dependencies
 COPY package*.json ./
+RUN apk add --no-cache nodejs npm && \
+    npm install --production && \
+    npm cache clean --force
 
-# Copy the package.json and package-lock.json files into the working dir (/app)
-COPY package.json package-lock.json ./
+# Copy the source code to the image
+COPY . .
 
-# Install node dependencies defined in package-lock.json
-RUN npm install
+# Set environment variables for the image
+ENV NODE_ENV=production
+ENV PORT=8080
 
-# Copy src to /app/src/
-COPY ./src ./src
-
-# Start the container by running our server
-CMD npm start
-
-# We run our service on port 8080
+# Expose the port that the server will listen on
 EXPOSE 8080
 
-# Copy src/
-COPY ./src ./src
-
-# Copy our HTPASSWD file
-COPY ./tests/.htpasswd ./tests/.htpasswd
-
-# Run the server
-CMD npm start
-
-#UPDATE LAB7
-# syntax=docker/dockerfile:1
-FROM golang:1.16-alpine AS build
-
-# Install tools required for project
-# Run `docker build --no-cache .` to update dependencies
-RUN apk add --no-cache git
-RUN go get github.com/golang/dep/cmd/dep
-
-# List project dependencies with Gopkg.toml and Gopkg.lock
-# These layers are only re-built when Gopkg files are updated
-COPY Gopkg.lock Gopkg.toml /go/src/project/
-WORKDIR /go/src/project/
-# Install library dependencies
-RUN dep ensure -vendor-only
-
-# Copy the entire project and build it
-# This layer is rebuilt when a file changes in the project directory
-COPY . /go/src/project/
-RUN go build -o /bin/project
-
-# This results in a single layer image
-FROM scratch
-COPY --from=build /bin/project /bin/project
-ENTRYPOINT ["/bin/project"]
-CMD ["--help"]
+# Set the command to run when the container starts
+CMD ["node", "index.js"]
 #END LAB7
