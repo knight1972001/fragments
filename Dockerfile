@@ -48,30 +48,40 @@ ENV NPM_CONFIG_COLOR=false
 # # Run the server
 # CMD npm start
 
-#UPDATE LAB7 Dockerfile employs Docker best practices for creating Docker Images
-# Build stage
-# Use a lightweight Alpine Linux image as the base
-FROM alpine:3.14
+#UPDATE LAB7 multi-stage builds
+# Use node version 18.13.0
+# Use node version 18.13.0
+FROM node:18.13.0
 
-# Set the working directory for the image
-WORKDIR /app
+LABEL maintainer="Long Nguyen <lnguyen97@myseneca.ca>"
+LABEL description="Fragments node.js microservice"
 
-# Copy the package.json and package-lock.json files to the image and install dependencies
-COPY package*.json ./
-RUN apk add --no-cache nodejs npm && \
-    npm install --production && \
-    npm cache clean --force
-
-# Copy the source code to the image
-COPY . .
-
-# Set environment variables for the image
-ENV NODE_ENV=production
+# We default to use port 8080 in our service
 ENV PORT=8080
 
-# Expose the port that the server will listen on
+# Reduce npm spam when installing within Docker
+# https://docs.npmjs.com/cli/v8/using-npm/config#loglevel
+ENV NPM_CONFIG_LOGLEVEL=warn
+
+# Disable colour when run inside Docker
+# https://docs.npmjs.com/cli/v8/using-npm/config#color
+ENV NPM_CONFIG_COLOR=false
+
+# Use /app as our working directory
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files into /app
+COPY package*.json /app/
+
+# Install node dependencies defined in package-lock.json
+RUN npm ci --only=production
+
+# Copy src to /app/src/
+COPY ./src ./src
+
+# We run our service on port 8080
 EXPOSE 8080
 
-# Set the command to run when the container starts
-CMD ["node", "index.js"]
+# Start the server
+CMD ["npm", "start"]
 #END LAB7
