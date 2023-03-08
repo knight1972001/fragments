@@ -74,7 +74,7 @@ WORKDIR /app
 COPY package*.json /app/
 
 # Install node dependencies defined in package-lock.json
-RUN npm ci --only=production
+RUN npm install
 
 # Copy src to /app/src/
 COPY ./src ./src
