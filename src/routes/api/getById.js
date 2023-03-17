@@ -77,6 +77,10 @@ module.exports = async (req, res) => {
           dataResult = await fragment.getData();
         }
       }
+
+      if (fragment.mimeType.includes('json')) {
+        dataResult = await fragment.getData();
+      }
     } else {
       if (validConversion(fragment.mimeType, ext)) {
         if (fragment.isText) {
@@ -87,6 +91,10 @@ module.exports = async (req, res) => {
             dataResult = await fragment.getData();
           }
         } else {
+          dataResult = await fragment.getData();
+        }
+
+        if (fragment.mimeType.includes('json')) {
           dataResult = await fragment.getData();
         }
       }
