@@ -101,6 +101,7 @@ module.exports = async (req, res) => {
     }
 
     if (dataResult) {
+      res.setHeader('Content-Type', fragment.mimeType);
       res.status(200).send(dataResult);
     } else {
       const error = 'Cannot convert from ' + fragment.mimeType + ' to ' + ext;

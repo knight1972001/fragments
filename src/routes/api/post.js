@@ -13,12 +13,13 @@ const generateUUID = () => {
 };
 
 module.exports = (req, res) => {
-  if (Buffer.isBuffer(req.body)) {
+  if (Buffer.isBuffer(req.body) && Fragment.isSupportedType(req.headers['content-type'])) {
     const id = generateUUID();
     const location = req.protocol + '://' + req.hostname + ':8080/v1' + req.url + '/' + id;
     res.set({ Location: location });
 
     const newFragment = new Fragment({
+      id: id,
       ownerId: crypto.createHash('sha256').update(req.user).digest('hex'),
       created: new Date().toString(),
       update: new Date().toString(),
@@ -36,6 +37,7 @@ module.exports = (req, res) => {
   } else {
     createErrorResponse(
       res.status(415).json({
+        status: 'error',
         message: 'Invalid file type',
       })
     );
