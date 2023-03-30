@@ -1,1 +1,1 @@
-tests/integration/*.hurl
+tests/**/*.hurl
