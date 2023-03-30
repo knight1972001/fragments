@@ -44,7 +44,7 @@ HTTP/1.1 200
 Content-Type: text/plain
 Content-Length: 9
 [Asserts]
-body == "Hello S3!"
+body == "Hello S3!" 
 
 # 4. DELETE the fragment
 DELETE {{url}}
@@ -56,6 +56,7 @@ HTTP/1.1 200
 
 # 7. Try to GET the fragment again using the url as an authorized user.
 GET {{url}}
+
 [BasicAuth]
 user1@email.com:password1
 

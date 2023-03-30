@@ -106,3 +106,5 @@ dist
 #aws file
 *.internal
 
+#minio folder
+.minio/
