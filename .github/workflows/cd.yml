@@ -87,18 +87,22 @@ jobs:
           # Add all the necessary environment variables, using GitHub Encrypted Secrets
           # for any values that should not be checked into git directly.  Here are
           # a few to get you started, but you should fill in the rest yourself.
+          #remove AWS_* lab9 require
+          #   AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          #   AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          #   AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          #   AWS_REGION=us-east-1
+          #   AWS_COGNITO_POOL_ID=us-east-1_CDuhcvT66
+          #   AWS_COGNITO_CLIENT_ID=44jmnrf1hd043767a4p2mpb2bv
+          #end remove AWS_*
+
           environment-variables: |
             LOG_LEVEL=info
             NODE_ENV=production
-            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-            AWS_REGION=us-east-1
-            AWS_COGNITO_POOL_ID=us-east-1_CDuhcvT66
-            AWS_COGNITO_CLIENT_ID=44jmnrf1hd043767a4p2mpb2bv
             API_URL=http://ec2co-ecsel-1ahmttdjgom4j-761582438.us-east-1.elb.amazonaws.com:8080/
             HTPASSWD_FILE=tests/.htpasswd
             PORT=8080
+            AWS_S3_BUCKET_NAME=lnguyen97-fragments
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
