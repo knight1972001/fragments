@@ -66,23 +66,10 @@ module.exports = async (req, res) => {
   if (idList.includes(id)) {
     const fragment = await Fragment.byId(user, id);
 
-    let dataResult = null;
+    if (fragment) {
+      let dataResult = null;
 
-    if (!ext) {
-      if (fragment.isText) {
-        if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
-          let html = await fragment.getData();
-          dataResult = '<h1>' + html + '</h1>';
-        } else {
-          dataResult = await fragment.getData();
-        }
-      }
-
-      if (fragment.mimeType.includes('json')) {
-        dataResult = await fragment.getData();
-      }
-    } else {
-      if (validConversion(fragment.mimeType, ext)) {
+      if (!ext) {
         if (fragment.isText) {
           if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
             let html = await fragment.getData();
@@ -90,25 +77,51 @@ module.exports = async (req, res) => {
           } else {
             dataResult = await fragment.getData();
           }
-        } else {
-          dataResult = await fragment.getData();
         }
 
         if (fragment.mimeType.includes('json')) {
           dataResult = await fragment.getData();
         }
-      }
-    }
+      } else {
+        if (validConversion(fragment.mimeType, ext)) {
+          if (fragment.isText) {
+            if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
+              let html = await fragment.getData();
+              dataResult = '<h1>' + html + '</h1>';
+            } else {
+              dataResult = await fragment.getData();
+            }
+          } else {
+            dataResult = await fragment.getData();
+          }
 
-    if (dataResult) {
-      res.setHeader('Content-Type', fragment.mimeType);
-      res.status(200).send(dataResult);
+          if (fragment.mimeType.includes('json')) {
+            dataResult = await fragment.getData();
+          }
+        }
+      }
+
+      if (dataResult) {
+        console.log('Data: ' + dataResult);
+        res.setHeader('Content-Type', fragment.mimeType);
+        res.status(200).send(dataResult);
+      } else {
+        const error = 'Cannot convert from ' + fragment.mimeType + ' to ' + ext;
+        createErrorResponse(
+          res.status(415).json({
+            code: 415,
+            message: error,
+          })
+        );
+      }
     } else {
-      const error = 'Cannot convert from ' + fragment.mimeType + ' to ' + ext;
       createErrorResponse(
-        res.status(415).json({
-          code: 415,
-          message: error,
+        res.status(404).json({
+          status: 'error',
+          error: {
+            message: 'Not found id!',
+            code: 404,
+          },
         })
       );
     }

@@ -12,7 +12,7 @@ const generateUUID = () => {
   return crypto.randomUUID().toString('hex');
 };
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   if (Buffer.isBuffer(req.body) && Fragment.isSupportedType(req.headers['content-type'])) {
     const id = generateUUID();
     const location = req.protocol + '://' + req.hostname + ':8080/v1' + req.url + '/' + id;
@@ -26,7 +26,7 @@ module.exports = (req, res) => {
       type: req.headers['content-type'],
       size: Number(req.headers['content-length']),
     });
-    newFragment.setData(req.body);
+    await newFragment.setData(req.body);
 
     createSuccessResponse(
       res.status(201).json({
