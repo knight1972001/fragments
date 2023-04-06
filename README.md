@@ -1,3 +1,4 @@
+
 # fragments
 
 CCP555
@@ -79,3 +80,6 @@ module.exports = require('pino')(options);
 `npm run dev` is used to view or run the application worked on while in development mode to see active changes while `npm start` on the other hand cannot be run until `npm build` has been run.
 `npm run debug` simple use to debug
 </p>
+
+## Auto deploy Docker Image and also ECR (AWS)
+Using Github workflow to auto deploy.
