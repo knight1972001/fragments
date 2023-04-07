@@ -70,7 +70,8 @@ class Fragment {
     if (!fragment) {
       throw new Error(`Fragment ${id} not found!`);
     }
-    return fragment;
+
+    return Promise.resolve(fragment);
   }
 
   /**
@@ -100,6 +101,10 @@ class Fragment {
     return readFragmentData(this.ownerId, this.id);
   }
 
+  // static async getData(ownerId, id) {
+  //   return await readFragmentData(ownerId, id);
+  // }
+
   /**
    * Set's the fragment's data in the database
    * @param {Buffer} data
@@ -122,7 +127,7 @@ class Fragment {
    */
   get mimeType() {
     const { type } = contentType.parse(this.type);
-    return type;
+    return type.toString();
   }
 
   /**
