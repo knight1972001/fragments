@@ -143,8 +143,7 @@ jobs:
           push: true
           # Use the git tag version and `latest`
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:${{ env.VERSION_TAG }}, ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:latest
-
-          #Integreation-tests
+        #Integreation-tests
   integration-tests:
     name: Integration Tests
     runs-on: ubuntu-latest
@@ -161,6 +160,8 @@ jobs:
         run: npm install
       - name: Build Containers
         run: docker compose up -d
+      - name: Make script executable
+        run: chmod +x ./scripts/local-aws-setup.sh
       - name: Setup Local AWS Resources
         # NOTE: this file needs to be made executable *before* you check into git:
         # $ chmod +x ./scripts/local-aws-setup.sh
