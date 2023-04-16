@@ -195,44 +195,39 @@ module.exports = async (req, res) => {
       let dataResult = null;
 
       if (!ext) {
-        if (fragment.isText) {
-          if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
-            let html = await fragment.getData();
-            dataResult = '<h1>' + html + '</h1>';
-          } else {
-            dataResult = await fragment.getData();
-          }
-        }
-        // fragment instanceof Fragment
-        //   ? console.log("It's Fragment" + ' | ' + typeof fragment)
-        //   : console.log('DEL ON ROI' + ' | ' + typeof fragment);
-
-        // console.log(fragment.mimeType + ' | ' + typeof fragment.mimeType);
-
-        if (fragment.mimeType.includes('json')) {
-          dataResult = await fragment.getData();
-        }
+        // if (fragment.isText) {
+        //   if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
+        //     let html = await fragment.getData();
+        //     dataResult = '<h1>' + html + '</h1>';
+        //   } else {
+        //     dataResult = await fragment.getData();
+        //   }
+        // }
+        // if (fragment.mimeType.includes('json')) {
+        //   dataResult = await fragment.getData();
+        // }
+        dataResult = await fragment.getData();
       } else {
         if (validConversion(fragment.mimeType, ext)) {
-          if (fragment.isText) {
-            if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
-              let html = await fragment.getData();
-              dataResult = '<h1>' + html + '</h1>';
-            } else {
-              dataResult = await fragment.getData();
-            }
-          } else {
-            dataResult = await fragment.getData();
-          }
-
-          if (fragment.mimeType.includes('json')) {
-            dataResult = await fragment.getData();
-          }
+          // if (fragment.isText) {
+          //   if (fragment.mimeType.includes('markdown') || fragment.mimeType.includes('html')) {
+          //     let html = await fragment.getData();
+          //     // dataResult = '<h1>' + html + '</h1>';
+          //     dataResult = html;
+          //   } else {
+          //     dataResult = await fragment.getData();
+          //   }
+          // } else {
+          //   dataResult = await fragment.getData();
+          // }
+          // if (fragment.mimeType.includes('json')) {
+          //   dataResult = await fragment.getData();
+          // }
+          dataResult = await fragment.getData();
         }
       }
 
       if (dataResult) {
-        console.log('Data: ' + dataResult);
         res.setHeader('Content-Type', fragment.mimeType);
         res.status(200).send(dataResult);
       } else {

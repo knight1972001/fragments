@@ -16,7 +16,7 @@ const {
 // We want to log any crash cases so we can debug later from logs.
 const logger = require('../../../logger');
 
-// Create two in-memory databases: one for fragment metadata and the other for raw data
+// Create two in-memory databases: one for fragment metadata and tehe other for raw data
 // const data = new MemoryDB();
 // const metadata = new MemoryDB();
 
@@ -83,8 +83,6 @@ async function writeFragmentData(ownerId, id, data) {
     Key: `${ownerId}/${id}`,
     Body: data,
   };
-
-  console.log('In write fragment data: ' + ownerId + ' | ' + id + ' | ' + data);
 
   // Create a PUT Object command to send to S3
   const command = new PutObjectCommand(params);

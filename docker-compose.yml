@@ -10,6 +10,10 @@ services:
     build: .
     # Environment variables to use
     environment:
+      # # AWS Amazon Cognito User Pool ID (use your User Pool ID)
+      # - AWS_COGNITO_POOL_ID=us-east-1_CDuhcvT66
+      # # AWS Amazon Cognito Client App ID (use your Client App ID)
+      # - AWS_COGNITO_CLIENT_ID=44jmnrf1hd043767a4p2mpb2bv
       # Our API will be running on http://localhost:8080
       - API_URL=http://localhost:8080
       # Use Basic Auth (for running tests, CI)

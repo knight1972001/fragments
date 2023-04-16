@@ -70,8 +70,15 @@ class Fragment {
     if (!fragment) {
       throw new Error(`Fragment ${id} not found!`);
     }
-
-    return Promise.resolve(fragment);
+    const newFragment = new Fragment({
+      id: fragment.id,
+      ownerId: fragment.ownerId,
+      created: fragment.created,
+      update: fragment.update,
+      type: fragment.type,
+      size: fragment.size,
+    });
+    return Promise.resolve(newFragment);
   }
 
   /**

@@ -13,6 +13,8 @@ const generateUUID = () => {
 };
 
 module.exports = async (req, res) => {
+  console.log(Buffer.isBuffer(req.body) + ' | ' + req.headers['content-type']);
+  console.log(Buffer.isBuffer(req.body) && Fragment.isSupportedType(req.headers['content-type']));
   if (Buffer.isBuffer(req.body) && Fragment.isSupportedType(req.headers['content-type'])) {
     const id = generateUUID();
     const location = req.protocol + '://' + req.hostname + ':8080/v1' + req.url + '/' + id;

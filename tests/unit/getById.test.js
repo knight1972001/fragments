@@ -13,9 +13,7 @@ describe('get valid convert', () => {
 
     const res = await request(app)
       .get(`/v1/fragments/${id}.txt`)
-      .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/plain')
-      .send('new fragment');
+      .auth('user1@email.com', 'password1');
     expect(res.status).toBe(200);
   });
 
