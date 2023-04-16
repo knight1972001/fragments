@@ -239,16 +239,6 @@ module.exports = async (req, res) => {
           })
         );
       }
-    } else {
-      createErrorResponse(
-        res.status(404).json({
-          status: 'error',
-          error: {
-            message: 'Not found id!',
-            code: 404,
-          },
-        })
-      );
     }
   } else {
     createErrorResponse(
